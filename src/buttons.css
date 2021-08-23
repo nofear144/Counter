@@ -1,0 +1,27 @@
+.buttonsStyle {
+    background-color: aqua;
+    border: 2px solid gray;
+    border-radius: 10px;
+    font-size: 30px;
+    font-family: monospace;
+}
+
+.IncResStyles {
+
+    display: flex;
+    justify-content:space-between ;
+    border: 2px solid aqua;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+.SetStyles {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid aqua;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 80px;
+}

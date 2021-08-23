@@ -1,0 +1,42 @@
+.number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bolder;
+    border-radius: 10px;
+    background: gray;
+    border: 2px solid aqua;
+}
+
+.redNumber {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bolder;
+    border-radius: 10px;
+    background: gray;
+    border: 2px solid aqua;
+    color: red;
+}
+
+.storageScreen {
+    padding: 5px;
+    border: 2px solid aqua;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+
+    margin-bottom: 50px;
+}
+
+

@@ -1,0 +1,13 @@
+.InputError{
+    border: 3px solid red;
+    background: pink;
+    border-radius: 10px;
+    text-align: center;
+    height: 40px;
+}
+.inputMaxMin{
+    border: 2px solid aqua;
+    border-radius: 10px;
+    text-align: center;
+    height: 40px;
+}

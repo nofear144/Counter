@@ -1,0 +1,21 @@
+.App {
+  margin: 0 auto;
+  width: 400px;
+  height: 400px;
+  padding: 30px;
+  border-radius: 8px;
+  background: gray;
+  border: 5px solid blueviolet;
+  display: flex;
+  flex-direction: column;
+}
+.wrap{
+  margin-top:100px;
+  display: flex;
+
+}
+.maxMin{
+  font-size: 35px;
+  color: aqua;
+}
+
