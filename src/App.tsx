@@ -44,13 +44,15 @@ function App() {
 
 
     function ChangeMaxValue(e: ChangeEvent<HTMLInputElement>) {
-        (+e.currentTarget.value <= startValue && +e.currentTarget.value <= 0) ? setError(true) : setError(false)
-        setMaxValue(+e.currentTarget.value)
+        let value = +e.currentTarget.value;
+        (value <= startValue && value <= 0) ? setError(true) : setError(false)
+        setMaxValue(value)
     }
 
     function ChangeStartValue(e: ChangeEvent<HTMLInputElement>) {
-        (+e.currentTarget.value < maxValue && +e.currentTarget.value >= 0) ? setError(false) : setError(true)
-        setStartValue(+e.currentTarget.value)
+        let value = +e.currentTarget.value;
+        (value < maxValue && value >= 0) ? setError(false) : setError(true)
+        setStartValue(value)
 
     }
 
@@ -64,7 +66,6 @@ function App() {
         <div className={"wrap"}>
             <div className={"App"}>
                 <div className={"storageScreen"}>
-
                     <span className={"maxMin"}>max value:</span>
                     <input
                         className={startValue === maxValue || maxValue < 0 || maxValue < startValue ? "InputError" : "inputMaxMin"}

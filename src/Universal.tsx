@@ -17,7 +17,7 @@ export const Universal=(props:UniversalType)=>{
 
     return(
         <button className={"buttonsStyle"}
-                disabled={props.data===props.maxValue  || props.error|| (props.minValue || 0)<0}
+                disabled={props.data===props.maxValue  || props.error|| (props.minValue || 0)<0 || props.maxValue===props.minValue}
                 onClick= {UniversalCallback} >{props.title}</button>
     )
 }
