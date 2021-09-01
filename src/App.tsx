@@ -18,11 +18,14 @@ function App() {
     let [error, setError] = useState(true)
 
 
+
     useEffect(() => {
+
         let startValue = localStorage.getItem('start value')
         if (startValue) {
             let startValueFromStorage = JSON.parse(startValue)
             setStartValue(startValueFromStorage)
+            setData(startValueFromStorage)
         }
     }, [])
     useEffect(() => {
@@ -35,7 +38,12 @@ function App() {
     }, [])
 
     function reset() {
-        setData(startValue)
+        let startValue = localStorage.getItem('start value')
+        if (startValue) {
+            let startValueFromStorage = JSON.parse(startValue)
+            setData(startValueFromStorage)
+        }
+
     }
 
     function Inc() {
@@ -44,15 +52,15 @@ function App() {
 
 
     function ChangeMaxValue(e: ChangeEvent<HTMLInputElement>) {
-        let value = +e.currentTarget.value;
-        (value <= startValue && value <= 0) ? setError(true) : setError(false)
-        setMaxValue(value)
+        let maxvalue = +e.currentTarget.value;
+        (maxvalue <= startValue && maxvalue <= 0) ? setError(true) : setError(false)
+        setMaxValue(maxvalue)
     }
 
     function ChangeStartValue(e: ChangeEvent<HTMLInputElement>) {
-        let value = +e.currentTarget.value;
-        (value < maxValue && value >= 0) ? setError(false) : setError(true)
-        setStartValue(value)
+        let minvalue = +e.currentTarget.value;
+        (minvalue < maxValue && minvalue >= 0) ? setError(false) : setError(true)
+        setStartValue(minvalue)
 
     }
 
@@ -96,7 +104,7 @@ function App() {
             <div className="App">
                 <div className={data === maxValue ? "redNumber" : "number"}>
                     {startValue > maxValue || startValue === maxValue || startValue < 0 || maxValue < 0 || maxValue < startValue ?
-                        <div>Incorrect Data</div> : data}
+                        <div className={"errorStl"}>Incorrect Data</div> : data}
                 </div>
 
                 <div className={"IncResStyles"}>
