@@ -10,14 +10,14 @@ let initialState = {
 type InitialStateType = typeof initialState
 
 export const CounterReducer = (data:InitialStateType = initialState, action: containerAcTypes):InitialStateType => {
-   /* debugger*/
+    /* debugger*/
     switch (action.type) {
-    /*    case "RESET_VALUE":
-            return {...data,value:action.value}*/
+        case "RESET_VALUE":
+            return {...data, value: action.value}
         case "INCREASE_VALUE":
             return {...data, value: data.value + 1}
         case "SET_START_VALUE":
-            return {...data, startValue: action.value,value: action.value}
+            return {...data, startValue: action.value}
         case "SET_MAX_VALUE":
             return {...data, maxValue: action.value}
         case "STATUS_ERROR":
@@ -36,9 +36,15 @@ type IncreaseValueACType = {
 type GetStartValueACType = ReturnType<typeof SetStartValueAC>
 type GetMaxValueACType = ReturnType<typeof SetMaxValueAC>
 type StatusErrorACType = ReturnType<typeof StatusErrorAC>
+type ResetValueACType = ReturnType<typeof ResetValueAC>
 
 
-export type containerAcTypes = IncreaseValueACType | GetStartValueACType | GetMaxValueACType | StatusErrorACType;
+export type containerAcTypes =
+    IncreaseValueACType
+    | GetStartValueACType
+    | GetMaxValueACType
+    | StatusErrorACType
+    | ResetValueACType;
 
 
 export let IncValueAc = () => {
@@ -58,38 +64,41 @@ export const SetMaxValueAC = (value: number) => {
         value,
     } as const
 }
-
+export const ResetValueAC = (value: number) => {
+    return {
+        type: "RESET_VALUE",
+        value,
+    } as const
+}
 export const StatusErrorAC = (status: boolean) => {
     return {
         type: "STATUS_ERROR",
         status
 
-    }as const
+    } as const
 }
 
 
 //THUNK
-export const SetMinValueTC=(startValue:number)=>(dispatch:Dispatch)=>{
+export const SetMinValueTC = (startValue: number) => (dispatch: Dispatch) => {
     localStorage.setItem("start value", JSON.stringify(startValue))
     dispatch(SetStartValueAC(startValue))
+
+
 }
-
-
-export const SetMAxValueTC=(maxValue:number)=>(dispatch:Dispatch)=>{
+export const SetMAxValueTC = (maxValue: number) => (dispatch: Dispatch) => {
     localStorage.setItem("max value", JSON.stringify(maxValue))
     dispatch(SetMaxValueAC(maxValue))
+
 }
 
-
-
-export const GetValueTC=()=>(dispatch:Dispatch)=>{
+export const GetValueTC = () => (dispatch: Dispatch) => {
     let startValue = localStorage.getItem('start value')
     if (startValue) {
         let startValueFromStorage = JSON.parse(startValue)
         dispatch(SetStartValueAC(startValueFromStorage))
+
     }
-
-
 
     let maxValue = localStorage.getItem('max value')
     if (maxValue) {

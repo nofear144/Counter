@@ -11,7 +11,7 @@ import {
     SetStartValueAC, GetValueTC,
     IncValueAc, SetMAxValueTC,
     SetMinValueTC,
-    StatusErrorAC, SetMaxValueAC
+    StatusErrorAC, SetMaxValueAC, ResetValueAC
 } from "./store/counter-reducer";
 
 
@@ -35,6 +35,7 @@ function App() {
 
     function reset() {
         dispatch(GetValueTC())
+        dispatch(ResetValueAC(startValue))
     }
 
     function Inc() {
