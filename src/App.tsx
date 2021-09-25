@@ -1,72 +1,63 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect} from 'react';
 import './App.css';
 import "./buttons.css"
 import "./input.css"
 import "./tablo.css"
 
 import {Universal} from "./Universal";
+import {useDispatch, useSelector} from "react-redux";
+import {rootReducerType} from "./store/store";
+import {
+    SetStartValueAC, GetValueTC,
+    IncValueAc, SetMAxValueTC,
+    SetMinValueTC,
+    StatusErrorAC, SetMaxValueAC
+} from "./store/counter-reducer";
+
+
 
 
 function App() {
 
-    let [data, setData] = useState(0)
-
-    let [startValue, setStartValue] = useState(0)
-
-    let [maxValue, setMaxValue] = useState(0)
-
-    let [error, setError] = useState(true)
-
 
 
     useEffect(() => {
-
-        let startValue = localStorage.getItem('start value')
-        if (startValue) {
-            let startValueFromStorage = JSON.parse(startValue)
-            setStartValue(startValueFromStorage)
-            setData(startValueFromStorage)
-        }
+        dispatch(GetValueTC())
     }, [])
-    useEffect(() => {
-        let maxValue = localStorage.getItem('max value')
 
-        if (maxValue) {
-            let maxValueFromStorage = JSON.parse(maxValue)
-            setMaxValue(maxValueFromStorage)
-        }
-    }, [])
+    let data = useSelector<rootReducerType, number>(state => state.data.value)
+    let startValue=useSelector<rootReducerType,number>(state=>state.data.startValue)
+    let maxValue=useSelector<rootReducerType,number>(state=>state.data.maxValue)
+    let error=useSelector<rootReducerType,boolean>(state=>state.data.error)
+    let dispatch = useDispatch()
+
+
 
     function reset() {
-        let startValue = localStorage.getItem('start value')
-        if (startValue) {
-            let startValueFromStorage = JSON.parse(startValue)
-            setData(startValueFromStorage)
-        }
-
+        dispatch(GetValueTC())
     }
 
     function Inc() {
-        setData(data + 1)
+        dispatch(IncValueAc())
     }
 
 
     function ChangeMaxValue(e: ChangeEvent<HTMLInputElement>) {
         let maxvalue = +e.currentTarget.value;
-        (maxvalue <= startValue && maxvalue <= 0) ? setError(true) : setError(false)
-        setMaxValue(maxvalue)
+        (maxvalue <= startValue && maxvalue <= 0) ? dispatch(StatusErrorAC(true)) : dispatch(StatusErrorAC(false))
+         dispatch(SetMaxValueAC(maxvalue))
     }
 
     function ChangeStartValue(e: ChangeEvent<HTMLInputElement>) {
         let minvalue = +e.currentTarget.value;
-        (minvalue < maxValue && minvalue >= 0) ? setError(false) : setError(true)
-        setStartValue(minvalue)
+        (minvalue < maxValue && minvalue >= 0) ? dispatch(StatusErrorAC(false)) : dispatch(StatusErrorAC(true))
+       dispatch(SetStartValueAC(minvalue))
 
     }
 
     function setLocalStorage() {
-        localStorage.setItem("max value", JSON.stringify(maxValue))
-        localStorage.setItem("start value", JSON.stringify(startValue))
+        dispatch(SetMinValueTC(startValue))
+        dispatch(SetMAxValueTC(maxValue))
     }
 
 
@@ -96,7 +87,6 @@ function App() {
                         data={data}
                         title={"set"}
                         minValue={startValue}
-                        setdata={setData}
                         error={error}
                     />
                 </div>
