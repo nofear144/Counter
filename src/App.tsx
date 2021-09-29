@@ -15,10 +15,7 @@ import {
 } from "./store/counter-reducer";
 
 
-
-
 function App() {
-
 
 
     useEffect(() => {
@@ -26,11 +23,10 @@ function App() {
     }, [])
 
     let data = useSelector<rootReducerType, number>(state => state.data.value)
-    let startValue=useSelector<rootReducerType,number>(state=>state.data.startValue)
-    let maxValue=useSelector<rootReducerType,number>(state=>state.data.maxValue)
-    let error=useSelector<rootReducerType,boolean>(state=>state.data.error)
+    let startValue = useSelector<rootReducerType, number>(state => state.data.startValue)
+    let maxValue = useSelector<rootReducerType, number>(state => state.data.maxValue)
+    let error = useSelector<rootReducerType, boolean>(state => state.data.error)
     let dispatch = useDispatch()
-
 
 
     function reset() {
@@ -45,20 +41,22 @@ function App() {
 
     function ChangeMaxValue(e: ChangeEvent<HTMLInputElement>) {
         let maxvalue = +e.currentTarget.value;
-        (maxvalue <= startValue && maxvalue <= 0) ? dispatch(StatusErrorAC(true)) : dispatch(StatusErrorAC(false))
-         dispatch(SetMaxValueAC(maxvalue))
+        (maxvalue <= startValue && maxvalue <= 0 && maxvalue === startValue) ? dispatch(StatusErrorAC(true)) : dispatch(StatusErrorAC(false))
+        dispatch(SetMaxValueAC(maxvalue))
     }
 
     function ChangeStartValue(e: ChangeEvent<HTMLInputElement>) {
         let minvalue = +e.currentTarget.value;
-        (minvalue < maxValue && minvalue >= 0) ? dispatch(StatusErrorAC(false)) : dispatch(StatusErrorAC(true))
-       dispatch(SetStartValueAC(minvalue))
+        (minvalue < maxValue && minvalue >= 0 && minvalue !== maxValue) ? dispatch(StatusErrorAC(false)) : dispatch(StatusErrorAC(true))
+        dispatch(SetStartValueAC(minvalue))
 
     }
 
     function setLocalStorage() {
         dispatch(SetMinValueTC(startValue))
         dispatch(SetMAxValueTC(maxValue))
+        dispatch(ResetValueAC(startValue))
+
     }
 
 
@@ -93,7 +91,7 @@ function App() {
                 </div>
             </div>
             <div className="App">
-                <div className={data === maxValue ? "redNumber" : "number"}>
+                <div className={data === maxValue || data > maxValue ? "redNumber" : "number"}>
                     {startValue > maxValue || startValue === maxValue || startValue < 0 || maxValue < 0 || maxValue < startValue ?
                         <div className={"errorStl"}>Incorrect Data</div> : data}
                 </div>

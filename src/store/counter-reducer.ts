@@ -4,7 +4,7 @@ let initialState = {
     value: 0,
     startValue: 0,
     maxValue: 0,
-    error: true
+    error: true,
 
 }
 type InitialStateType = typeof initialState
