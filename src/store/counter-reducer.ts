@@ -97,6 +97,7 @@ export const GetValueTC = () => (dispatch: Dispatch) => {
     if (startValue) {
         let startValueFromStorage = JSON.parse(startValue)
         dispatch(SetStartValueAC(startValueFromStorage))
+        dispatch(ResetValueAC(startValueFromStorage))
 
     }
 
